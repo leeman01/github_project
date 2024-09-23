@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+   <persistence-unit name="jpastudy">
+        <properties>
+             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="jakarta.persistence.jdbc.url"    value="jdbc:mysql://localhost/jpatest?characterEncoding=utf-8" />
+            <property name="jakarta.persistence.jdbc.user"   value="jpauser" />
+            <property name="jakarta.persistence.jdbc.password" value="jpauser" />
+            
+            <!-- 하이버네이트 DB별 dialect 설정: DB나 Hibernate 버전마다 다름 -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            
+            <!-- 하이버네이트 커넥션 풀 설정 -->
+            <property name="hibernate.hikari.poolName" value="pool"/>
+            <property name="hibernate.hikari.maxmumPoolSize" value="10"/>
+            <property name="hibernate.hikari.minmumIdle" value="10"/>
+            <property name="hibernate.hikari.connectionTimeout" value="1000"/> <!--  1s -->
+        </properties>
+    </persistence-unit>
+</persistence>
