@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ADMIN PAGE</title>
+	<script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+	<script>
+		// JavaScript로 일일 및 누적 접속자 수 업데이트 (백엔드에서 실제 데이터 받아와야 함)
+		document.getElementById("dailyVisitors").innerText = 123; // 임시 값
+		document.getElementById("totalVisitors").innerText = 4567; // 임시 값
+	</script>
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<h2>ADMIN PAGE</h2>
+	<!-- 일일 및 누적 접속자 수 통계 -->
+	<div class="stats">
+		<p>일일 접속자 수: <span id="dailyVisitors">0</span></p>
+		<p>누적 접속자 수: <span id="totalVisitors">0</span></p>
+	</div>
+
+	<!-- 공지사항 -->
+	<div class="notice">
+		<h3>공지사항</h3>
+		<ul>
+			<li>남을 비방하는 글은 쓸 수 없음</li>
+			<li>커여운 말만 쓰도록 노력할 필요가 있음!!</li>
+		</ul>
+	</div>
+
+	<!-- 블로그 링크 연결 -->
+	<div class="blogLink">
+		<h3>주인장 블로그 바로가기</h3>
+		<p><a href="https://blog.naver.com/djsjdjsj1154" target="_blank">★블로그 방문하기★</a></p>
+	</div>
+</body>
+
+</html>

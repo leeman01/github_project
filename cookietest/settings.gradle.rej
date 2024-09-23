@@ -1,0 +1,3 @@
+diff a/cookietest/settings.gradle b/cookietest/settings.gradle	(rejected hunks)
+@@ -1 +0,0 @@
+-rootProject.name = 'cookietest'

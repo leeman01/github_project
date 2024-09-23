@@ -1,0 +1,98 @@
+/* list.css: 게시글 목록 관련 디자인 */
+@charset "UTF-8";
+@import "main.css";
+
+div.content {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+/*
+    글 개수, 검색창 (화면 상단)
+*/
+div.content>div.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.search {
+    width: 550px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+div.search select {
+    width: 150px;
+    height: 32px;
+    border: 0px;
+    outline: 2px solid pink;
+    border-radius: 10px;
+}
+
+div.search input[type="text"] {
+    width: 300px;
+}
+
+/*
+    게시글 목록 테이블 스타일
+*/
+.no,
+.writer,
+.hitcount {
+    width: 100px;
+}
+
+.create_date {
+    width: 180px;
+}
+
+/*
+    글쓰기 버튼
+*/
+div.write {
+    width: 1000px;
+    margin: 10px auto;
+    text-align: right;
+}
+
+/*
+    pagination
+*/
+nav.pagination {
+    width: 1000px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.page-no {
+    display: inline-block;
+    width: 20px;
+    height: 30px;
+    padding: 0.4rem;
+    line-height: 1rem;
+    margin: 0px 2px;
+}
+
+.current {
+    font-weight: bold;
+    color: red;
+
+}
+
+.navi {
+    font-size: 1.4em;
+    width: 10px;
+}
+
+img {
+    width: 90px;
+    height: 90px;
+}
+
+/* 
+tbody tr:hover {
+    background-color: #ffeff2;
+} */

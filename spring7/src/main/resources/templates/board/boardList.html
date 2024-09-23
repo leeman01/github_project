@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록</title>
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+    <script defer th:src="@{/script/search.js}"></script>
+</head>
+
+<body>
+    <div class="container" th:replace="fragment/header(title='게시글 목록')">
+        <!--
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo3.png}" alt="logo">
+            </a>
+            <h2>게시글 목록</h2>
+        </div>
+        -->
+    </div> <!-- (end .container) div.container는 어느 페이지를 가도 보이도록 할 예정 -->
+
+    <!-- 8월 26일 by 윤수 /게시글 전체 목록 출력 (이런 식으로 자기 파트 정리 및 확인 가능)-->
+    <!-- 게시글 전체 목록 출력 -->
+    <div class="content">
+        <div class="top">
+            <!-- 전체 글 개수 출력 -->
+            <div class="count">
+                <p>게시글 개수: [[ ${list.totalElements} ]]</p>
+            </div>
+
+            <!-- 검색창 -->
+            <div class="search">
+                <form action="boardList" method="GET" id="searchForm">
+                    <input type="hidden" name="page" id="requestPage" th:value="${page}">
+                    <select name="searchItem" id="searchItem">
+                        <option value="boardTitle" th:selected="${searchItem == 'boardTitle'}">글 제목</option>
+                        <option value="boardWriter" th:selected="${searchItem == 'boardWriter'}">작성자</option>
+                        <option value="boardContent" th:selected="${searchItem == 'boardContent'}">글 내용</option>
+                    </select>
+                    <input type="text" name="searchWord" id="searchWord" th:value="${searchWord}">
+                    <input type="button" value="검색" id="search" class="btn btn-yunsoo">
+                </form>
+            </div> <!-- end .search-->
+        </div><!-- end .top -->
+
+        <!-- <p th:if="${#lists.isEmpty(list)}">게시글이 존재하지 않습니다.</p> -->
+        <div class="head">
+            <!-- 게시글 목록 -->
+            <div>
+                <table border="1">
+                    <tr>
+                        <th class="no">글 번호</th>
+                        <th>제목</th>
+                        <th class="writer">작성자</th>
+                        <th class="hitcount">조회수</th>
+                        <th class="create_date">작성일</th>
+                    </tr>
+
+                    <th:block thLunless="${lists.isEmpty(list)}">
+                        <!-- 반복 구간-->
+                        <tr th:each="board, status : ${list}">
+                            <!-- <td class="no" th:text="${status.count}">1</td> -->
+                            <!-- <span style="color: blue;">list.number: [[ ${list.number} ]]</span> -->
+                            <!-- <span style="color: blue;">list.size: [[ ${list.size} ]]</span> -->
+                            <td class="no" th:text="${(list.number + 1) * list.size - (list.size - status.count)}">1
+                            </td>
+                            <td>
+                                <a th:href="@{/board/boardDetail(boardNum=${board.boardNum}, searchItem=${searchItem}, searchWord=${searchWord})}"
+                                    th:text="${board.boardTitle}">오늘은 날씨가 매우 더워요.</a>
+                                <!-- 댓글 개수 출력 -->
+                                <th:block th:if="${board.replyCount != 0}">
+                                    <span style="font-weight: bold; color: darkred;">
+                                        ( [[ ${board.replyCount} ]] )
+                                    </span>
+                                </th:block>
+                                <!-- 첨부 파일 유무 -->
+                                <span th:if="${board.originalFileName != null}">
+                                    <img th:src="@{/images/attachment.png}" alt="삭제" style="width:15px; height:18px;">
+                                </span>
+                            </td>
+                            <td class="writer" th:text="${board.boardWriter}">임꺽정</td>
+                            <td class="hitcount" th:text="${board.hitCount}">0</td>
+                            <td class="create_date"
+                                th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}">
+                                2024-08-26</td>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+        </div> <!-- end .head-->
+    </div> <!-- end .content -->
+
+    <!-- 글쓰기 버튼: 로그인한 회원만 보이도록 설정 -->
+    <div class="write">
+        <a th:href="@{/board/boardWrite}" class="btn btn-yunsoo">글쓰기</a>
+    </div>
+
+    <!-- Page Navigation -->
+    <nav class="pagination">
+        <!-- 앞 그룹 -->
+        <!-- 2번째 그룹 이상을 보고 있을 경우, 앞 그룹 링크 생김 -->
+        <th:block th:if="${navi.startPageGroup > 1}">
+            <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.startPageGroup - 1})|">&laquo;</a>
+        </th:block>
+
+        <!-- 1번째 그룹을 보고 있을 경우, 링크가 생기지 않음 -->
+        <th:block th:unless="${navi.startPageGroup > 1}">
+            <span class="page-no navi">&laquo;</span>
+        </th:block>
+
+        <!-- 앞 페이지 -->
+        <!-- 2페이지 이상의 페이지를 보고 있으면 링크 생김 -->
+        <th:block th:if="${navi.page > 1}">
+            <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.page - 1})|">&lsaquo;</a>
+        </th:block>
+
+        <!-- 1페이지를 보고 있으면 링크가 생기지 않음 -->
+        <th:block th:unless="${navi.page > 1}">
+            <span class="page-no navi">&lsaquo;</span>
+        </th:block>
+
+        <!-- 현재 페이지 번호 출력(요청한 페이지 / 요청하지 않은 페이지) 나뉘어야 함 -->
+        <span th:each="count : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+            <!-- 사용자가 요청한 페이지-->
+            <span th:if="${count == navi.page}">
+                <b class="page-no current" th:text="${count}"></b>
+            </span>
+
+            <!-- 사용자가 요청하지 않은 페이지 -->
+            <span th:unless="${count == navi.page}">
+                <a th:href="|javascript:pageFormSubmit(${count})|" class="page-no" th:text="${count}"></a>
+            </span>
+        </span>
+
+        <!-- 뒷 페이지 -->
+        <!-- 현재 페이지 뒤에 다른 페이지가 존재하면 링크 생김 -->
+        <th:block th:if="${(navi.totalPages) > (navi.page)}">
+            <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.page + 1})|">&rsaquo;</a>
+        </th:block>
+
+        <!-- 마지막 페이지를 보고 있으면 링크가 생기지 않음 -->
+        <th:block th:unless="${(navi.totalPages) > (navi.page)}">
+            <span class="page-no navi">&rsaquo;</span>
+        </th:block>
+
+        <!-- 뒷 그룹 -->
+        <!-- 다음 그룹이 존재하면 링크 생김 -->
+        <th:block th:if="${(navi.currentGroup) < (navi.totalGroupCount)}">
+            <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.endPageGroup + 1})|">&raquo;</a>
+        </th:block>
+
+        <!-- 마지막 그룹을 보고 있으면 링크가 생기지 않음 -->
+        <th:block th:unless="${(navi.currentGroup) < (navi.totalGroupCount)}">
+            <span class="page-no navi">&raquo;</span>
+        </th:block>
+    </nav>
+    </div>
+</body>
+
+</html>

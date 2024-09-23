@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록</title>
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+    <script defer th:src="@{/script/search.js}"></script>
+</head>
+
+<body>
+    <div class="container" th:fragment="top-menu(title)">
+        <div class="logo">
+            <a th:href="@{/}"> <!-- 로고 누르면 첫 화면으로 이동 -->
+                <img th:src="@{/images/logo3.png}" alt="logo">
+            </a>
+            <h2 th:text="${title}"></h2>
+        </div>
+
+        <!-- 로그인 정보 -->
+        <div id="user">
+            <ul>
+                <li sec:authorize="isAnonymous()"><a th:href="@{/user/login}">로그인</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/user/logout}">[[ ${loginName}
+                        ]]([[${#authentication.name} ]])님 로그아웃</a></li>
+                <!-- <li sec:authorize="isAuthenticated()"><a th:href="@{/user/logout}">[[ ${loginName} ]]님 로그아웃</a></li> -->
+            </ul>
+        </div>
+    </div> <!-- (end .container) div.container는 어느 페이지를 가도 보이도록 할 예정 -->
+</body>
+
+</html>

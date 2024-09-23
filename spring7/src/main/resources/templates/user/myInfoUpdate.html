@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인정보 수정</title>
+
+    <!-- CSS 설정 -->
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <script src="https://kit.fontawesome.com/def97ee41b.js" crossorigin="anonymous"></script>
+
+    <!-- 검증 설정 -->
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script defer th:src="@{/script/update.js}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo3.png}" alt="logo">
+            </a>
+            <h2>개인정보 수정</h2>
+        </div>
+    </div> <!-- end .container -->
+
+    <div class="content">
+        <form th:action="@{/user/update}" method="POST" id="updateForm">
+            <div class="section">
+                <div class="article">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="userName" id="userName" th:value="${userDTO.userName}" readonly>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-id-card"></i>
+                            <input type="text" name="userId" id="userId" th:value="${userDTO.userId}" readonly>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-unlock"></i>
+                            <input type="password" name="userPwd" id="userPwd" placeholder="password">
+                            <div id="confirmPwd" style="font-size: 0.8em;"></div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-unlock-keyhole"></i>
+                            <input type="password" name="userPwdCheck" id="userPwdCheck" placeholder="password 확인">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-at"></i>
+                            <input type="email" name="email" id="email" placeholder="email" required>
+                            <!-- required: submit에서만 의미 있음 -->
+                            <div id="emailCheck" style="font-size: 0.8em;"></div>
+                        </li>
+                    </ul>
+
+                    <div class="btns">
+                        <input type="button" id="submitBtn" value="회원 정보 수정" class="btn btn-yunsoo">
+                        <input type="reset" id="resetBtn" value="초기화" class="btn btn-right">
+                    </div> <!-- end .btns -->
+
+                </div> <!-- end .article -->
+            </div> <!-- end .section pointColor -->
+        </form>
+    </div><!-- end .content -->
+</body>
+
+</html>

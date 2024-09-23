@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 수정 화면</title>
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+</head>
+
+<body>
+    <div class="container" th:replace="fragment/header(title='게시글 수정')">
+        <!--
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo3.png}" alt="logo">
+            </a>
+            <h2>게시글 수정</h2>
+        </div>
+        -->
+    </div> <!-- end .container -->
+
+    <!-- 게시글 수정 화면 -->
+    <div class="content">
+        <form th:action="@{/board/boardUpdate}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="boardNum" th:value="${board.boardNum}">
+            <input type="hidden" id="searchItem" name="searchItem" th:value="${searchItem}">
+            <input type="hidden" id="searchWord" name="searchWord" th:value="${searchWord}">
+
+            <table border="1">
+                <tr>
+                    <th>작성자</th>
+                    <td> <!-- 로그인 한 사람의 아이디 -->
+                        <input type="text" id="boardWriter" name="boardWriter" th:value="${board.boardWriter}" readonly>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>글 제목</th>
+                    <td> <!-- 로그인 한 사람의 아이디 -->
+                        <input type="text" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}" required>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>작성일</th>
+                    <td>
+                        <span th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>글 내용</th>
+                    <td>
+                        <textarea name="boardContent" id="boardContent" cols="30" rows="10"
+                            th:text="${board.boardContent}" required></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>첨부 파일</th> <!-- 첨부파일 작성 시 수정 -->
+                    <td>
+                        <span th:if="${board.originalFileName != null}" th:text="${board.originalFileName}">
+                            파일명
+                        </span>
+                        <span th:if="${board.originalFileName != null}">
+                            <a th:href="@{/board/deleteFile(boardNum=${board.boardNum})}">
+                                <img th:src="@{/images/trash.png}" alt="파일 삭제" style="width:15px; height:18px;">
+                            </a>
+                        </span>
+                        <input type="file" id="uproadFile" name="uploadFile" class="btn btn-light">
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">
+                        <input type="submit" value="글 수정" class="btn btn-yunsoo">&nbsp;
+                        <!-- <input type="reset" value="목록" class="btn btn-light"> -->
+                        <a th:href="@{/board/boardList(searchItem = ${searchItem}, searchWord = ${searchWord})}"
+                            class="btn btn-light">목록으로 이동</a>
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

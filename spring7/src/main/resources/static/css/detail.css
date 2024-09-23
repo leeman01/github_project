@@ -1,0 +1,65 @@
+/* detail.css: 게시글 상세 보기 화면 디자인 */
+@charset "UTF-8";
+@import "main.css";
+
+/*
+    글 상세 보기 화면
+*/
+div.content td {
+    text-align: left;
+    width: 800px;
+}
+
+pre {
+    width: 750px;
+    height: 200px;
+}
+
+/*
+    댓글
+*/
+div.reply-write {
+    width: 1000px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.reply-write input#replyText {
+    display: inline-block;
+    width: 910px;
+    height: 35px;
+}
+
+/*
+    글 목록
+*/
+div.reply-list {
+    width: 1000px;
+}
+
+/*
+    댓글 목록
+*/
+div.reply-list {
+    width: 1000px;
+}
+
+/*
+    댓글 표현이 되는 테이블
+*/
+tr>td.reply-writer,
+tr>td.reply-date,
+tr>td.btns {
+    width: 200px;
+    text-align: center;
+}
+
+/* tr>td.reply-text {
+    text-align: center;
+} */
+
+/*
+    
+*/

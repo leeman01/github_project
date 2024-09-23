@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+
+    <!-- CSS 설정 -->
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <script src="https://kit.fontawesome.com/def97ee41b.js" crossorigin="anonymous"></script>
+
+    <!-- 검증 설정 -->
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo3.png}" alt="logo">
+            </a>
+            <h2>로그인</h2>
+        </div>
+    </div> <!-- end .container -->
+
+    <div class="content">
+        <form th:action="@{/user/loginProc}" method="POST" id="loginForm">
+            <div class="section pointColor">
+                <div class="article">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-id-card"></i>
+                            <input type="text" name="userId" id="userId" placeholder="ID">
+                            <div id="confirmId" style="font-size: 0.8em;"></div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-unlock"></i>
+                            <input type="password" name="userPwd" id="userPwd" placeholder="password">
+                            <div id="confirmPwd" style="font-size: 0.8em;"></div>
+                        </li>
+                    </ul>
+                    
+                    <th:block th:if="${error}">
+                    	<div th:text="${errMessage}" style="font-size: 0.8em; color: red; margin: 10px;"></div>
+                    </th:block>
+
+                    <div class="btns">
+                        <input type="submit" id="submitBtn" value="로그인" class="btn btn-yunsoo">
+                        <input type="reset" id="resetBtn" value="초기화" class="btn btn-right">
+                    </div> <!-- end .btns -->
+
+                </div> <!-- end .article -->
+            </div> <!-- end .section pointColor -->
+        </form>
+    </div><!-- end .content -->
+</body>
+
+</html>
