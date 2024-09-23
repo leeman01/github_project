@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>쿠키와 세션의 사용</title>
+</head>
+<body>
+	<h2>쿠키와 세션의 사용</h2>
+	<ul>
+		<li>쿠키의 사용
+			<ul>
+				<li><a href="cookieSave">쿠키저장</a></li>
+				<li><a href="cookieDel">쿠키삭제</a></li>
+				<li><a href="cookieRead">쿠키읽기</a></li>
+				
+			</ul>
+		</li><br>
+		<li>세션의 사용
+			<ul>
+				<li><a href="sessionSave">세션저장</a></li>
+				<li><a href="sessionDel">세션삭제</a></li>
+				<li><a href="sessionRead">세션읽기</a></li>
+			</ul>
+		</li><br>
+		<li>세션의 응용
+			<ul>
+				<li th:if="${session.loginId eq null}"><a href = "loginForm">로그인</a></li>
+				<li th:unless="${session.loginId eq null}"><a href ="logout">로그아웃</a></li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>
